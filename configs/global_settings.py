@@ -66,6 +66,13 @@ API_APPS = (
     'apps.walls',
     'apps.events',
     'apps.docs',
+<<<<<<< HEAD
+=======
+    'apps.portals.applications.core',
+    'apps.portals.applications.coord',
+    'apps.portals.applications.account',
+    'apps.portals.applications.application_portal',
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 )
 INSTALLED_APPS =  DJANGO_APPS + THIRD_PARTY_APPS + API_APPS
 
@@ -114,7 +121,7 @@ WSGI_APPLICATION = 'configs.wsgi.application'
 # http://django-debug-toolbar.readthedocs.org/en/1.0/installation.html#explicit-setup
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-# AUTH_PROFILE_MODULE = 'apps.users.models.UserProfile'
+#AUTH_PROFILE_MODULE = 'apps.portals.applications.account.UserProfile'
 # Database
 #DATABASES = {
 #    'default': {
@@ -292,7 +299,11 @@ SOCIAL_AUTH_STRATEGY            = 'social.strategies.django_strategy.DjangoStrat
 SOCIAL_AUTH_STORAGE             = 'social.apps.django_app.default.models.DjangoStorage'
 
 # SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+<<<<<<< HEAD
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/login/'
+=======
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 # SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/profile/new'
 # SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/new-assoc/'
 # SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected/'
@@ -336,8 +347,13 @@ SOCIAL_AUTH_PIPELINE = (
     # Google
 SOCIAL_AUTH_GOOGLE_CONSUMER_KEY          = ''
 SOCIAL_AUTH_GOOGLE_CONSUMER_SECRET       = ''
+<<<<<<< HEAD
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY            = '186928535147.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET         = 'N2LxEfSraUVwC79sn4aqtqFE'
+=======
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY            = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET         = ''
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE           = [
     'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -348,6 +364,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE           = [
     # Facebook
 SOCIAL_AUTH_FACEBOOK_KEY                = ''
 SOCIAL_AUTH_FACEBOOK_SECRET             = ''
+<<<<<<< HEAD
 SOCIAL_AUTH_FACEBOOK_SCOPE              = [
     'basic_info', # Basic Info scope
     'email', # Email scope
@@ -374,6 +391,10 @@ SOCIAL_AUTH_FACEBOOK_SCOPE              = [
     'publish_actions', 'publish_stream', # Extended permissions publish
 ]
 SOCIAL_AUTH_FACEBOOK_EXTENDED_PERMISSIONS = SOCIAL_AUTH_FACEBOOK_SCOPE
+=======
+SOCIAL_AUTH_FACEBOOK_SCOPE              = ['basic_info', 'email']
+SOCIAL_AUTH_FACEBOOK_EXTENDED_PERMISSIONS = ['email','publish_actions']
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
     # Twitter
 SOCIAL_AUTH_TWITTER_KEY                 = ''
 SOCIAL_AUTH_TWITTER_SECRET              = ''
@@ -404,6 +425,7 @@ MARKDOWN_DEUX_STYLES = {
 }
 MARKDOWN_DEUX_HELP_URL = "http://daringfireball.net/projects/markdown/syntax"
 
+<<<<<<< HEAD
 GOOGLE_API_CLIENT_SECRETS = os.path.join(PROJECT_PATH, 'configs', 'docs_oauth2_credentials.json')
 GOOGLE_API_REDIRECT_URI = SITE_URL + 'docs/oauth2callback'
 GOOGLE_API_CREDENTIALS_FILE_PATH = os.path.abspath(os.path.join(PROJECT_PATH, "configs", "google_api_credentials.json" ) )
@@ -414,3 +436,14 @@ GOGOLE_API_PUBLIC_KEY = ''
 if os.path.exists(GOOGLE_API_CREDENTIALS_FILE_PATH):
     with open(GOOGLE_API_CREDENTIALS_FILE_PATH) as f:
         GOOGLE_API_CREDENTIALS = f.read()
+=======
+
+GOOGLE_API_USER_EMAIL = ''
+GOOGLE_API_CLIENT_SECRETS = os.path.join(os.path.dirname(__file__),  'docs_client_secrets.json')
+GOOGLE_API_REDIRECT_URI = SITE_URL + 'docs/oauth2callback'
+GOOGLE_API_CREDENTIALS = ""
+GOOGLE_DRIVE_ROOT_FOLDER_ID = ""
+
+RECAPTCHA_PUBLIC_KEY = '6Lf1ktUSAAAAALOtemzm08LVwHmfku6yXXCdrMJn'
+RECAPTCHA_PRIVATE_KEY = '6Lf1ktUSAAAAANLvSSLPiSpgocDrjyK9ApPUvcaF'
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069

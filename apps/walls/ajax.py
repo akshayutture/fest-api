@@ -19,15 +19,26 @@ from misc.utils import *  #Import miscellaneous functions
 
 # From Apps
 from apps.users.models import UserProfile, ERPProfile, Dept, Subdept
+<<<<<<< HEAD
 from apps.walls.utils import paginate_items
+=======
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 
 # Ajax post & comment
 from django.shortcuts import get_object_or_404
 from apps.walls.models import Wall, Post, Comment
 from annoying.functions import get_object_or_None
 
+<<<<<<< HEAD
 # -------------------------------------------------------------
 # TEST FUNCTIONS
+=======
+# Ajax post & comment
+from django.shortcuts import get_object_or_404
+from apps.walls.models import Wall, Post, Comment
+from annoying.functions import get_object_or_None
+
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 @dajaxice_register
 def hello_world(request):
     """
@@ -61,6 +72,7 @@ def get_notifications(request, **kwargs):
 
     append_string = ""
     for item in items:
+<<<<<<< HEAD
         local_context = {
             'post' : item.target, 
             'notification' : item,
@@ -72,6 +84,10 @@ def get_notifications(request, **kwargs):
         "exhausted" : exhausted,
     }
     return json.dumps(local_context)
+=======
+        append_string += "<hr />" + render_to_string('modules/post.html', {'post': item.target}, context_instance= global_context(request))
+    return json.dumps({'append_string': append_string, 'exhausted':exhausted})
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 
 @dajaxice_register
 def get_posts(request, **kwargs):
@@ -91,6 +107,7 @@ def get_posts(request, **kwargs):
     
     append_string = ""
     for item in items:
+<<<<<<< HEAD
         local_context = {
             'post' : item, 
             'show_post' : 'True',
@@ -103,6 +120,10 @@ def get_posts(request, **kwargs):
         "wall_id" : wall_id,
     }
     return json.dumps(local_context)
+=======
+        append_string += "<hr />" + render_to_string('modules/post.html', {'post': item, 'show_post':'True'}, context_instance= global_context(request))
+    return json.dumps({'append_string': append_string, 'exhausted':exhausted})
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 
 @dajaxice_register
 def get_notifs(request, **kwargs):
@@ -242,6 +263,100 @@ def create_comment(request, post_id, comment_form):
     """
     # Initial validations
     try:
+<<<<<<< HEAD
+=======
+        items = paginator.page(page)
+        exhausted = False
+    except PageNotAnInteger:
+        pass
+        # If page is not an integer, deliver first page.
+        # items = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        items = []
+        exhausted = True
+
+    append_string =  render_to_string('modules/notification.html', {'notifications': items}, context_instance= global_context(request))
+    return json.dumps({ 'append_string': append_string, 
+    	'exhausted':exhausted, 
+    	'notif_type':notif_type
+    })
+
+@dajaxice_register
+def create_post(request, wall_id, post_form):
+    """
+        Create a new wall post
+    """
+    # Initial validations
+    try:
+        wall_id = int(wall_id)
+    except ValueError:
+        print wall_id, "could not convert to int"
+        wall_id = None
+    
+    if not ( type(wall_id) is int ):
+        print "wall_id :", wall_id, type(wall_id)
+        raise InvalidArgumentTypeException("argument `wall_id` should be of type integer")
+    wall = get_object_or_404(Wall, id=int(wall_id))
+    print wall
+
+    # create a new post
+    data = request.POST.copy()
+    append_string = ""
+    if post_form:
+        data = deserialize_form(post_form)
+        post_text = data['new_post']
+        tags =  data.getlist("atwho_list")
+        parsed_tags = [tag.rsplit("_",1) for tag in tags]
+        notification_depts = []
+        notification_subdepts = []
+        notification_users = []
+        link_text = '<a href="%s"> %s</a>'
+        for tag in parsed_tags:
+            id = int(tag[1])
+            key = tag[0]
+            if key == 'department':
+                tagged_dept = get_object_or_None(Dept, id=id)
+                if tagged_dept:
+                    notification_depts.append(tagged_dept)
+                    post_text = post_text.replace('@' + tagged_dept.name, link_text %(reverse("wall", kwargs={"wall_id" : tagged_dept.wall.pk}), tagged_dept.name) )
+                else:
+                    print "No id for dept"
+            elif key == 'subdept':
+                tagged_subdept = get_object_or_None(Subdept, id=id)
+                if tagged_subdept:
+                    notification_subdepts.append(tagged_subdept)
+                    post_text = post_text.replace('@' + tagged_subdept.name, link_text %(reverse("wall", kwargs={"wall_id" : tagged_subdept.wall.pk}), tagged_subdept.name) )
+                else:
+                    print "No id for subdept"
+            else:
+                tagged_user = get_object_or_None(User, id=id)
+                if tagged_user:
+                    notification_users.append(tagged_user)
+                    post_text = post_text.replace('@' + tagged_user.first_name+"_"+tagged_user.last_name, link_text %(reverse("wall", kwargs={"wall_id" : tagged_user.erp_profile.wall.pk}), tagged_user.get_full_name()) )
+                else:
+                    print "No id for user"
+
+        new_post = Post.objects.create(description=post_text, wall=wall, by=request.user)
+
+        if notification_depts:
+            new_post.notification_depts.add(tagged_dept)
+        if notification_subdepts:
+            new_post.notification_subdepts.add(tagged_subdept)
+        if notification_users:
+            new_post.notification_users.add(tagged_user)
+        # Render the new post
+        append_string =  render_to_string('modules/post.html', {'post': new_post}, context_instance= global_context(request)) + "<hr />"
+    return json.dumps({ 'append_string': append_string })
+
+@dajaxice_register
+def create_comment(request, post_id, comment_form):
+    """
+        Creates a new comment on a Post
+    """
+    # Initial validations
+    try:
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
         post_id = int(post_id)
     except ValueError:
         print post_id, "could not convert to int"
@@ -270,7 +385,11 @@ def create_comment(request, post_id, comment_form):
         notification_depts = []
         notification_subdepts = []
         notification_users = []
+<<<<<<< HEAD
         link_text = '[%s](%s)'
+=======
+        link_text = '<a href="%s"> %s</a>'
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
         for tag in parsed_tags:
             id = int(tag[1])
             key = tag[0]
@@ -278,24 +397,36 @@ def create_comment(request, post_id, comment_form):
                 tagged_dept = get_object_or_None(Dept, id=id)
                 if tagged_dept:
                     notification_depts.append(tagged_dept)
+<<<<<<< HEAD
                     link_href = reverse("wall", kwargs={"wall_id" : tagged_dept.wall.pk})
                     comment_text = comment_text.replace('@' + tagged_dept.name, link_text % (tagged_dept.name, link_href) )
+=======
+                    comment_text = comment_text.replace('@' + tagged_dept.name, link_text %(reverse("wall", kwargs={"wall_id" : tagged_dept.wall.pk}), tagged_dept.name) )
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
                 else:
                     print "No id for dept"
             elif key == 'subdept':
                 tagged_subdept = get_object_or_None(Subdept, id=id)
                 if tagged_subdept:
                     notification_subdepts.append(tagged_subdept)
+<<<<<<< HEAD
                     link_href = reverse("wall", kwargs={"wall_id" : tagged_subdept.wall.pk})
                     comment_text = comment_text.replace('@' + tagged_subdept.name, link_text %(tagged_subdept.name, link_href) )
+=======
+                    comment_text = comment_text.replace('@' + tagged_subdept.name, link_text %(reverse("wall", kwargs={"wall_id" : tagged_subdept.wall.pk}), tagged_subdept.name) )
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
                 else:
                     print "No id for subdept"
             else:
                 tagged_user = get_object_or_None(User, id=id)
                 if tagged_user:
                     notification_users.append(tagged_user)
+<<<<<<< HEAD
                     link_href = reverse("wall", kwargs={"wall_id" : tagged_user.erp_profile.wall.pk})
                     comment_text = comment_text.replace('@' + tagged_user.first_name+"_"+tagged_user.last_name, link_text %(tagged_user.get_full_name(), link_href) )
+=======
+                    comment_text = comment_text.replace('@' + tagged_user.first_name+"_"+tagged_user.last_name, link_text %(reverse("wall", kwargs={"wall_id" : tagged_user.erp_profile.wall.pk}), tagged_user.get_full_name()) )
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
                 else:
                     print "No id for user"
 
@@ -308,6 +439,7 @@ def create_comment(request, post_id, comment_form):
         if notification_users:
             post.notification_users.add(tagged_user)
         # Render the new comment
+<<<<<<< HEAD
         local_context = {
             'comment': new_comment, 
             'post': post
@@ -318,3 +450,7 @@ def create_comment(request, post_id, comment_form):
         'post_id' : post_id
     }
     return json.dumps(local_context)
+=======
+        append_string =  render_to_string('modules/comment.html', {'comment': new_comment, 'post': post}, context_instance= global_context(request))
+    return json.dumps({ 'append_string': append_string })    
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069

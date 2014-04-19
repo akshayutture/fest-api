@@ -11,6 +11,7 @@
     <br/>
     {% url 'create_post' wall.id as new_post_url %}
     {% include "modules/new_post.html" %}
+<<<<<<< HEAD
     
     <div id="new_post_placeholder" style="height : 30px;"></div>
     
@@ -18,6 +19,15 @@
         {% include "modules/post.html" %}    
     {% empty %}
         <div id="empty_wall_msg" class="row-fluid huge muted">
+=======
+    <div id="new_post_placeholder" style="height : 30px;"></div>
+	{% for post in wall_posts %}
+	    {% with show_post='True' %}
+	    	{% include "modules/post.html" %}
+	   	{% endwith %}       
+	{% empty %}
+		<div id="empty_wall_msg" class="row-fluid huge muted">
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
             <hr />
             There are no Posts :(
         </div>
@@ -27,6 +37,10 @@
     </div>
 
     </div>
+<<<<<<< HEAD
+=======
+    <center style="display : none;"><button class="btn btn-success" name="see_more" id="id_see_more"See more</button></center>
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 {% endblock %}
 
 {% block extra_css %} {{ block.super }}
@@ -49,6 +63,7 @@
 {% block extra_js %} 
 {{ block.super }}
 <script type="text/javascript">
+<<<<<<< HEAD
     function dajax_get_posts(data){
         if (!data.exhausted){
             $('#main_body_content .see_more_posts').before(data.append_string);
@@ -86,5 +101,31 @@
         }).scroll();
         
     })
+=======
+	function append_new_data(data){
+	    if (!data.exhausted){
+	        $('#main_body_content').append(data.append_string);
+	        $('#id_current_page').val(parseInt($('#id_current_page').val())+1);
+	    }
+	    else {
+	        $('#id_see_more').html('No more to load');
+	    }
+	}
+
+	$( document ).ready(function() {    
+		// See More
+		$("#id_see_more").click(function() {
+			Dajaxice.apps.walls.wall_pagination(append_new_data, {'page':parseInt($('#id_current_page').val())+1, 'wall_id':{{wall.id}} })
+		})
+
+		// Inifinite scroll
+		$(window).scroll(function(){
+		    if( $(document).scrollTop() >= $(document).height() - $(window).height() ) {
+		        $("#id_see_more").click();
+		    }	
+		}).scroll();
+		
+	})
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 </script>
 {% endblock %}

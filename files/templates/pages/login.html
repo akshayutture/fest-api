@@ -12,6 +12,7 @@
                         <a class='brand big_brand bold' href='{{ SITE_URL }}'>{{ FEST_NAME }}</a>
                     </div>
                     <div class='span6' id='login_box'>
+<<<<<<< HEAD
                         
                         {% if current_page == "login" %}
                             <form class='span9 pull-right' action='{% url "login" %}' method='POST' id='login_form'  autocomplete="on">
@@ -41,6 +42,24 @@
                                 </a>
                             {% endif %}</h2>
                         {% endif %}
+=======
+                        <form class='span9 pull-right' action='{% url "login" %}' method='POST' id='login_form'  autocomplete="on">
+                            {% csrf_token %}
+                            <div class='span5 input_box'>
+                                <label for='id_username'>Email ID</label><br />
+                                <input type='text' name='username' id='id_username' required='true' autofocus class='input-large' value='{{ login_form.username.value|default_if_none:"" }}'><br />
+                            </div>
+                            <div class='span5 input_box'>
+                                <label for='id_password'>Password</label><br />
+                                <input type='password' name='password' id='id_password' placeholder='Password' required='true' class='input-large' value='{{ login_form.password.value|default_if_none:"" }}'><br />
+                                <a id='forgot_passwd' href='{% url "password_reset" %}'>Forgotten Password</a>
+                            </div>
+                            <div class='span2 submit_box'>
+                                <label for="id_submit"></label><br />
+                                <a href='#' id="id_submit" class='btn primary static small'>Log in</a>
+                            </div>
+                        </form>
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
                     </div>
                 </div>
             </div>
@@ -51,6 +70,7 @@
 
 {% block full_content %}
     <div class='row-fluid below_loginbar'>
+<<<<<<< HEAD
         <div class='span5 offset1'>
             <img src="{% static 'img/fest_pics/shaastra_inception_upper.jpg' %}" style="width : 100%; height : auto;"/>
             {% if current_page == "login" %}
@@ -101,12 +121,22 @@
                 </div>
             </div>
              -->
+=======
+        <div class='span6'>
+        </div>
+        <div class='span6'>
+            <span class='big'>Sign Up</span>
+            <a class='zocial facebook btn-block' href="{% url 'social:begin' 'facebook' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Sign in with Facebook</a>
+
+            <a class='zocial google btn-block' href="{% url 'social:begin' 'google-oauth2' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Sign in with Google</a>
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
         </div>
     </div>
 {% endblock %}
 
 {% block extra_css %}
 {{ block.super }}
+<<<<<<< HEAD
 <link href="{% static 'css/zocial.css' %}" rel="stylesheet" media="screen">
 
 <style>
@@ -120,6 +150,9 @@
         padding: 5px 10px 7px;
         margin: 15px 0 0 0;
     }
+=======
+<style>
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
     .below_loginbar {
         margin-top : 100px;
     }

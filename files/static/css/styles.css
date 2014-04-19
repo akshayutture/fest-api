@@ -99,6 +99,20 @@
 }
 .opacity_half {
     opacity : 0.5;
+<<<<<<< HEAD
+=======
+}
+
+/* Specific Template styles */
+.topbar div > ul.nav.links a.settingButton, .nav.links a.settingButton {
+    background-image: url(../img/fb_icons.png);
+    background-repeat: no-repeat!important;
+    background-size: auto!important;
+    background-position: -80px 0!important;
+    height : 15px;
+    padding: 5px 10px 10px;
+    margin: 5px 0 0 0px;
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 }
 .full_width {
     width :100%;

@@ -48,11 +48,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'full_path_for_emails'
 
 # Docs integration
+<<<<<<< HEAD
 GOOGLE_DRIVE_ROOT_FOLDER_ID = ""
 GOGOLE_API_PUBLIC_KEY = ""
 
 # Python social auth tokens - Ali
 SOCIAL_AUTH_FORCE_FB				 = False
+=======
+GOOGLE_API_USER_EMAIL = 'festapi14@gmail.com'
+GOOGLE_API_CREDENTIALS = ""
+GOOGLE_DRIVE_ROOT_FOLDER_ID = ""
+
+# Python social auth tokens
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 # SOCIAL_AUTH_FACEBOOK_KEY             = '398345720274389'
 # SOCIAL_AUTH_FACEBOOK_SECRET          = 'fd6da85c30b673d399ea6e61180e35da'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY        = '186928535147.apps.googleusercontent.com'

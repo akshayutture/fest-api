@@ -69,7 +69,11 @@
     <div class="container-fluid below_topbar">
         {% block full_content %}
         <div class="row-fluid">
+<<<<<<< HEAD
             <div class="span2 offset1 sidebar" >
+=======
+            <div class="span2 offset1 sidebar">
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
                 {% block left_content %} 
                 	{% include 'base/sidebar.html' %}
                 {% endblock %}
@@ -79,9 +83,15 @@
 	            <div id="main_body_content" class="span6 main_body">
 	                {% block content %} {% endblock %}
 	            </div>
+<<<<<<< HEAD
             {% endblock %}
             {% block rightbar %} 
                 {% include 'base/rightbar.html' %}
+=======
+	            <div class="span2 rightbar">
+	                {% block rightbar %} {% endblock %}
+	            </div>
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
             {% endblock %}
         </div>
         {% endblock %}
@@ -248,11 +258,14 @@
             }
         });
 	        
+<<<<<<< HEAD
     </script>
     <script>
         $(document).ready(function() {
             $('.fancybox').fancybox();
         });
+=======
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
     </script>
 </body>
 

@@ -25,7 +25,11 @@
 				You have no unread notifications.
 			</div>
 		{% endfor %}
+<<<<<<< HEAD
 		<div class="center see_more_notifs" name="see_more_notifs" >
+=======
+		<div class="center" name="see_more_unread" id="id_see_more_unread">
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 			See more
 		</div>
 	</div>	
@@ -85,13 +89,21 @@
 	.notif:hover {
 		background-color : #f0f0f0;
 	}
+<<<<<<< HEAD
 	.see_more_notifs {
+=======
+	#id_see_more_unread {
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 		background-color : #f0f0f0;	
 		padding : 5px;
 		color: #3B5998;
 		cursor : pointer;
 	}
+<<<<<<< HEAD
 	.see_more_notifs:hover {
+=======
+	#id_see_more_unread:hover {
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 		background-color : #e0e0e0;	
 		color: #1B3978;
 		text-decoration : underline;
@@ -160,8 +172,31 @@
 			});
 		})
 		// $(".notifButton").popover("show")
+<<<<<<< HEAD
 		
 	});
+=======
+		function see_more_notifs(data) {
+			Dajax.process(data)
+		}
+		$("#id_see_more_unread").click(function () {
+			Dajaxice.apps.home.load_notifs(see_more_notifs, {
+				'start':parseInt($('#id_current_page_unread').val()),
+				'end':parseInt($('#id_current_page_unread').val())+4,
+				'targetdiv': '#id_notifs_container_unread' 
+			})
+		})
+
+	});
+	/*
+	$("#id_notifs_container_unread").scroll(function(){
+		var scrollPos = 0;
+		if(scrollPos==$(this).scrollTop()){
+			alert("reached bottom!");
+		}
+		scrollPos = $(this).scrollTop();
+	});*/
+>>>>>>> ddb3110b160f83f4a6d8a8606874217778b99069
 	
 </script>
 {% endonce %}
